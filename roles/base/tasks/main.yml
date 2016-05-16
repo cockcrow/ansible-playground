@@ -1,0 +1,25 @@
+---
+- name: Install handy packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - htop
+    - tree
+    - curl
+    - cowsay
+    - fortune-mod
+
+- name: Sync node timezone
+  file:
+    path: /etc/localtime
+    src: /usr/share/zoneinfo/Asia/Shanghai
+    state: link
+    force: yes
+
+- name: fortune | cowsay on bash startup
+  lineinfile:
+    dest: /etc/profile.d/zzz-cowsay.sh
+    line: "/usr/games/fortune | /usr/games/cowsay 2> /dev/null"
+    create: yes
+...

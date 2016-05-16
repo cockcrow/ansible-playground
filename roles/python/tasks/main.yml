@@ -1,0 +1,19 @@
+---
+- name: Install python packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python
+    - python-dev
+    - python-pip
+    - python-virtualenv
+
+- name: Upgrade pip and venv
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - pip
+    - virtualenv
+...

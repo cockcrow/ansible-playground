@@ -1,0 +1,11 @@
+# Visual Studio Code editor settings
+.vscode
+
+# Vagrant virtual machines
+.vagrant
+
+# Production hosts inventory
+inventory/production
+
+# Ansible retry files
+*.retry
