@@ -1,0 +1,26 @@
+---
+- name: Install shadowsocks
+  pip:
+    name: shadowsocks
+    state: latest
+
+- name: Install M2Crypto to make encryption faster
+  apt:
+    name: python-m2crypto
+    state: latest
+
+- name: Install Supervisor for daemons
+  apt:
+    name: supervisor
+    state: latest
+
+- name: Upload config files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - {src: "shadowsocks.json", dest: "/etc/shadowsocks.json"}
+    - {src: "shadowsocks.conf", dest: "/etc/supervisor/conf.d/shadowsocks.conf"}
+  notify:
+    - Restart supervisor
+...
