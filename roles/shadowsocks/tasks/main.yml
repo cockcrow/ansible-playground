@@ -14,13 +14,17 @@
     name: supervisor
     state: latest
 
-- name: Upload config files
+- name: Upload default shadowsocks config
   copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - {src: "shadowsocks.json", dest: "/etc/shadowsocks.json"}
-    - {src: "shadowsocks.conf", dest: "/etc/supervisor/conf.d/shadowsocks.conf"}
+    src: "shadowsocks.json"
+    dest: "/etc/shadowsocks.json"
+  notify:
+    - Restart supervisor
+
+- name: Upload supervisor configuration
+  template:
+    src: "shadowsocks.conf.j2"
+    dest: "/etc/supervisor/conf.d/shadowsocks.conf"
   notify:
     - Restart supervisor
 ...
