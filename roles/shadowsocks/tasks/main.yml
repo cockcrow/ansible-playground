@@ -18,6 +18,7 @@
   copy:
     src: "shadowsocks.json"
     dest: "/etc/shadowsocks.json"
+    force: no
   notify:
     - Restart supervisor
 
