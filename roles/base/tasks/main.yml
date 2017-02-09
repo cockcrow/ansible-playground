@@ -10,6 +10,11 @@
     - cowsay
     - fortune-mod
 
+- name: Set locale to en_US.UTF-8
+  locale_gen:
+    name: en_US.UTF-8
+    state: present
+
 - name: Sync node timezone
   file:
     path: /etc/localtime
