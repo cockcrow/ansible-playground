@@ -22,9 +22,19 @@
     state: link
     force: yes
 
-- name: fortune | cowsay on bash startup
+- name: "`fortune | cowsay` on bash startup"
   lineinfile:
     dest: /etc/profile.d/zzz-cowsay.sh
     line: "/usr/games/fortune | /usr/games/cowsay 2> /dev/null"
     create: yes
+
+- name: Refine bash history
+  lineinfile:
+    dest: /etc/profile.d/history-with-timestamp.sh
+    line: "{{ item }}"
+    create: yes
+  with_items:
+    - 'export HISTTIMEFORMAT="%F %T "'
+    - "export HISTSIZE=5000"
+    - "export HISTFILESIZE=10000"
 ...
