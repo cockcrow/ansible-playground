@@ -1,0 +1,46 @@
+---
+- name: System preparation
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - zlib1g-dev
+    - uuid-dev
+    - libmnl-dev
+    - gcc
+    - make
+    - git
+    - autoconf
+    - autoconf-archive
+    - autogen
+    - automake
+    - pkg-config
+    - curl
+
+- name: Clone netdata repository
+  git:
+    repo: https://github.com/firehol/netdata.git
+    dest: /tmp/netdata
+    clone: yes
+    depth: 1
+
+- name: Install netdata service
+  shell: cd /tmp/netdata/ && ./netdata-installer.sh --dont-wait --libs-are-really-here
+
+- name: /tmp clean up
+  file:
+    path: /tmp/netdata
+    state: absent
+
+- name: Config slack webhook
+  lineinfile:
+    dest: /etc/netdata/health_alarm_notify.conf
+    regexp: "{{ item.regex }}"
+    line: "{{ item.line }}"
+  with_items:
+    - {regex: '^SLACK_WEBHOOK_URL=', line: 'SLACK_WEBHOOK_URL="{{ slack_webhook }}"'}
+    - {regex: '^DEFAULT_RECIPIENT_SLACK=', line: 'DEFAULT_RECIPIENT_SLACK="{{ slack_channel }}"'}
+  no_log: true
+  notify:
+    - Restart netdata service
+...
