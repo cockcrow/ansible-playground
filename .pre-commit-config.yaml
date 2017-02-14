@@ -1,0 +1,22 @@
+---
+- repo: git://github.com/pre-commit/pre-commit-hooks
+  sha: e626cd57090d8df0be21e4df0f4e55cc3511d6ab
+  hooks:
+    - id: check-added-large-files
+    - id: check-byte-order-marker
+      files: ""  # match all files
+    - id: check-case-conflict
+    - id: check-merge-conflict
+    - id: check-json
+    - id: check-yaml
+    - id: detect-private-key
+    - id: end-of-file-fixer
+    - id: pretty-format-json
+      args: ["--autofix", "--indent", "2", "--no-sort-keys"]
+    - id: trailing-whitespace
+
+- repo: git://github.com/pre-commit/pre-commit
+  sha: a81de1ebb3b4b98f9a02bb0257d54c7ec9d21578
+  hooks:
+    - id: validate_config
+...
