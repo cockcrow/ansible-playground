@@ -37,4 +37,9 @@
     - 'export HISTTIMEFORMAT="%F %T "'
     - "export HISTSIZE=5000"
     - "export HISTFILESIZE=10000"
+
+- name: Manage behaviour of line input editing
+  template:
+    dest: /etc/inputrc
+    src: inputrc.j2
 ...
