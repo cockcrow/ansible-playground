@@ -35,8 +35,8 @@
     create: yes
   with_items:
     - 'export HISTTIMEFORMAT="%F %T "'
-    - "export HISTSIZE=5000"
-    - "export HISTFILESIZE=10000"
+    - "export HISTSIZE={{ history_size // 2}}"
+    - "export HISTFILESIZE={{ history_size }}"
 
 - name: Manage behaviour of line input editing
   template:
