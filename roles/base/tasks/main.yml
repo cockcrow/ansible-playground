@@ -1,4 +1,13 @@
 ---
+- name: Disable SSH password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication yes"
+    line: "PasswordAuthentication no"
+    backrefs: yes
+  notify:
+    - Restart SSH service
+
 - name: Install handy packages
   apt:
     name: "{{ item }}"
