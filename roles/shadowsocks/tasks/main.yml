@@ -9,11 +9,6 @@
     name: python-m2crypto
     state: latest
 
-- name: Install Supervisor for daemons
-  apt:
-    name: supervisor
-    state: latest
-
 - name: Upload default shadowsocks config
   copy:
     src: "shadowsocks.json"

@@ -1,0 +1,12 @@
+---
+- name: Install Supervisor package
+  apt:
+    name: supervisor
+    state: latest
+
+- name: Enable supervisor service start on boot
+  systemd:
+    name: supervisor.service
+    enabled: yes
+    masked: no
+...
